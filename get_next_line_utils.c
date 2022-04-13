@@ -6,11 +6,17 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/12 17:07:38 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:06:42 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	while (n--)
+		*(char *)(s++) = 0;
+}
 
 int	ft_strlen(char *s)
 {

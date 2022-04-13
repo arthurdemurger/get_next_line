@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/12 17:09:26 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:20:33 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,6 @@ char	*stash_to_line(char *str)
 	return (line);
 }
 
-char	*ft_read(int fd, char *stash, int *n)
-{
-	char	*buf;
-
-	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (NULL);
-	*n = read(fd, buf, BUFFER_SIZE);
-	if (*n < 0)
-	{
-		free(buf);
-		return (NULL);
-	}
-	stash = strcat_gnl(stash, buf);
-	return (stash);
-}
-
 char	*clean(char *str)
 {
 	int	i;
@@ -65,23 +48,47 @@ char	*clean(char *str)
 	return (NULL);
 }
 
+char	*ft_read(int fd, char *stash, char *buf, int *n)
+{
+	*n = read(fd, buf, BUFFER_SIZE);
+	stash = strcat_gnl(stash, buf);
+	return (stash);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*line;
 	int			n;
+	char		*buf;
 
-	stash = ft_read(fd, stash, &n);
-	if (!stash)
+	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (NULL);
+	stash = ft_read(fd, stash, buf, &n);
+	if (!stash)
+			return (NULL);
 	while (n && !is_line_break(stash))
 	{
-		stash = ft_read(fd, stash, &n);
+		ft_bzero(buf, BUFFER_SIZE);
+		stash = ft_read(fd, stash, buf, &n);
 		if (!stash)
 			return (NULL);
 	}
 	line = stash_to_line(stash);
-	if (is_line_break(stash))
+	if (is_line_break(stash) || ft_strlen(buf) < BUFFER_SIZE)
 		stash = clean(stash);
+	free(buf);
 	return (line);
+}
+
+int main (void)
+{
+	int	fd;
+	int	i;
+
+	i = 0;
+	fd = open("test.txt", O_RDONLY);
+	while (i++ < 10)
+		printf("gnl %d : '%s'\n", i, get_next_line(fd));
 }
