@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:40 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 15:17:14 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:09:51 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd);
 */
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 100
 #endif
 
 /*
@@ -43,16 +43,16 @@ char	*get_next_line(int fd);
 # define BUF printf("buf : '%s'\n", buf);
 # define STR printf("str : '%s'\n", str);
 # define SIZE printf("size : '%d'\n", size);
+# define N printf("n : '%d'\n", n);
 
 /*
 **	Utils functions
 */
 
-void	ft_bzero(void *s, size_t n);
 int		ft_strlen(char *s);
 char	*ft_strdup(char *src);
 char	*gnl_strjoin(char *s1, char *s2);
 int		is_line_break(char *str);
-char	*ft_substr(char const *s, int start, int len);
+char	*gnl_substr(char const *s, int start, int len);
 
 #endif

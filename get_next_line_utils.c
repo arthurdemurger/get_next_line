@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 15:11:28 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:56:29 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	return (dst);
 }
 
-char	*ft_substr(char const *s, int start, int len)
+char	*gnl_substr(char const *s, int start, int len)
 {
 	char	*src;
 	char	*str;
