@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/19 00:25:54 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/19 00:27:47 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*clean(char *stash, int n)
 
 	i = -1;
 	if (!n)
-		return(gnl_free(stash));
+		return (gnl_free(stash));
 	while (stash && stash[++i])
 	{
 		if (stash[i] == '\n' && stash[i + 1])
