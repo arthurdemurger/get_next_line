@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:40 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 18:27:31 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:57:07 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd);
 */
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 42
 #endif
 
 /*

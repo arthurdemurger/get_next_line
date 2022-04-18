@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 18:26:04 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/19 00:00:30 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,27 @@ char	*ft_strdup(char *src)
 	return (str);
 }
 
-char	*gnl_strjoin(char *s1, char *s2)
+char	*gnl_strjoin(char *stash, char *buf)
 {
 	char	*dst;
-	int		size_s1;
-	int		size_s2;
 	int		i;
+	int		j;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	size_s1 = ft_strlen(s1);
-	size_s2 = ft_strlen(s2);
-	dst = (char *)malloc(sizeof(char) * (size_s1 + size_s1 + 1));
+	if (!stash)
+		return (ft_strdup(buf));
+	if (!*buf)
+		return (stash);
+	dst = malloc(sizeof(char) * (ft_strlen(stash) + ft_strlen(buf) + 1));
 	if (!dst)
 		return (NULL);
 	i = -1;
-	while (++i < size_s1)
-		dst[i] = s1[i];
-	i--;
-	while (++i - size_s1 < size_s2)
-		dst[i] = s2[i - size_s1];
+	j = 0;
+	while (stash[++i])
+		dst[i] = stash[i];
+	while (buf[j])
+		dst[i++] = buf[j++];
 	dst[i] = 0;
-	free(s1);
+	free(stash);
 	return (dst);
 }
 

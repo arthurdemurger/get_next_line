@@ -6,19 +6,24 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 18:29:30 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/19 00:25:54 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*gnl_free(char *s)
+{
+	if (s)
+		free(s);
+	return (NULL);
+}
+
 char	*stash_to_line(char *str)
 {
 	int		size;
 	char	*line;
-	int		i;
 
-	i = -1;
 	size = 0;
 	if (!*str)
 		return (NULL);
@@ -28,26 +33,24 @@ char	*stash_to_line(char *str)
 	return (line);
 }
 
-char	*gnl_free(char *s)
+char	*clean(char *stash, int n)
 {
-	if (s)
-		free(s);
-	return (NULL);
-}
-
-char	*clean(char *str, int n)
-{
-	int	i;
+	char	*str;
+	int		i;
 
 	i = -1;
 	if (!n)
-		return(gnl_free(str));
-	while (str && str[++i])
+		return(gnl_free(stash));
+	while (stash && stash[++i])
 	{
-		if (str[i] == '\n' && str[i + 1])
-			return (&str[++i]);
-		else if (str[i] == '\n')
-			return (NULL);
+		if (stash[i] == '\n' && stash[i + 1])
+		{
+			str = ft_strdup(&stash[++i]);
+			free(stash);
+			return (str);
+		}
+		else if (stash[i] == '\n')
+			return (gnl_free(stash));
 	}
 	return (NULL);
 }
@@ -73,19 +76,6 @@ char	*get_next_line(int fd)
 	}
 	free(buf);
 	line = stash_to_line(stash);
-	if (is_line_break(stash) || !n)
-		stash = clean(stash, n);
+	stash = clean(stash, n);
 	return (line);
-}
-
-int main (void)
-{
-	int	fd;
-	int	i;
-
-	i = 0;
-	fd = open("43_with_nl", O_RDONLY);
-	while (i++ < 5)
-		printf("gnl %d : '%s'\n", i, get_next_line(fd));
-	close(fd);
 }
