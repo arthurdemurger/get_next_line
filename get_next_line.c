@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/13 19:40:04 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:22:47 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,7 @@ char	*stash_to_line(char *str)
 	size = 0;
 	while (str[size] && str[size] != '\n')
 		size++;
-	line = (char *)malloc(sizeof(char) * (size + 1));
-	if (!line)
-		return (NULL);
-	while (++i < size)
-	{
-		line[i] = str[i];
-	}
-	line[size] = 0;
+	line = ft_substr(str, 0, size);
 	return (line);
 }
 
@@ -48,41 +41,30 @@ char	*clean(char *str)
 	return (NULL);
 }
 
-char	*ft_read(int fd, char *stash, int *n)
+char	*gnl_free(char *s)
 {
-	char	*buf;
-	
-	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (NULL);
-	*n = read(fd, buf, BUFFER_SIZE);
-	if (n < 0)
-	{
-		free(buf);
-		return(NULL);
-	}
-	stash = strcat_gnl(stash, buf);
-	free(buf);
-	return (stash);
+	if (s)
+		free(s);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*line;
+	char		*buf;
 	int			n;
-	
-	if (fd < 0 || BUFFER_SIZE < 0)
-		return (NULL);
-	stash = ft_read(fd, stash, &n);
-	if (!stash)
-			return (NULL);
+
+	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf || read(fd, NULL, 0) < 0)
+		return (gnl_free(buf));
+	n = 1;
 	while (n && !is_line_break(stash))
 	{
-		stash = ft_read(fd, stash, &n);
-		if (!stash)
-			return (NULL);
+		n = read(fd, buf, BUFFER_SIZE);
+		stash = gnl_strjoin(stash, buf);
 	}
+	free(buf);
 	line = stash_to_line(stash);
 	if (is_line_break(stash) || !n)
 		stash = clean(stash);
@@ -97,6 +79,6 @@ int main (void)
 
 	i = 0;
 	fd = open("test.txt", O_RDONLY);
-	while (i++ < 10)
+	while (i++ < 15)
 		printf("gnl %d : '%s'\n", i, get_next_line(fd));
-}*/
+} */

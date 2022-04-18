@@ -6,16 +6,18 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/13 19:06:42 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:11:28 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+int	is_line_break(char *str)
 {
-	while (n--)
-		*(char *)(s++) = 0;
+	while (str && *str)
+		if (*str++ == '\n')
+			return (1);
+	return (0);
 }
 
 int	ft_strlen(char *s)
@@ -43,28 +45,43 @@ char	*ft_strdup(char *src)
 	return (str);
 }
 
-char	*strcat_gnl(char *dest, char *src)
+char	*gnl_strjoin(char *s1, char *s2)
 {
-	int	i;
-	int	j;
+	char	*dst;
+	int		size;
+	int		i;
 
+	if (!s1)
+		return (ft_strdup(s2));
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	dst = (char *)malloc(sizeof(char) * size);
+	if (!dst)
+		return (NULL);
 	i = -1;
-	if (!dest)
-		dest = ft_strdup(src);
-	else
-	{
-		j = ft_strlen(dest);
-		while (src[++i])
-			dest[j + i] = src[i];
-		dest[j + i] = 0;
-	}
-	return (dest);
+	while (++i < ft_strlen(s1))
+		dst[i] = s1[i];
+	i--;
+	while (++i - ft_strlen(s1) < ft_strlen(s2))
+		dst[i] = s2[i - ft_strlen(s1)];
+	dst[i] = 0;
+	return (dst);
 }
 
-int	is_line_break(char *str)
+char	*ft_substr(char const *s, int start, int len)
 {
-	while (str && *str)
-		if (*str++ == '\n')
-			return (1);
-	return (0);
+	char	*src;
+	char	*str;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	src = (char *)s;
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (++i < len)
+		str[i] = src[start + i];
+	str[i] = 0;
+	return (str);
 }
