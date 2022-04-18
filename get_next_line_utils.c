@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 17:54:09 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:26:04 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	while (++i - size_s1 < size_s2)
 		dst[i] = s2[i - size_s1];
 	dst[i] = 0;
+	free(s1);
 	return (dst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 17:54:37 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:29:30 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,20 @@ char	*stash_to_line(char *str)
 	return (line);
 }
 
-char	*clean(char *str)
+char	*gnl_free(char *s)
+{
+	if (s)
+		free(s);
+	return (NULL);
+}
+
+char	*clean(char *str, int n)
 {
 	int	i;
 
 	i = -1;
+	if (!n)
+		return(gnl_free(str));
 	while (str && str[++i])
 	{
 		if (str[i] == '\n' && str[i + 1])
@@ -40,13 +49,6 @@ char	*clean(char *str)
 		else if (str[i] == '\n')
 			return (NULL);
 	}
-	return (NULL);
-}
-
-char	*gnl_free(char *s)
-{
-	if (s)
-		free(s);
 	return (NULL);
 }
 
@@ -60,7 +62,7 @@ char	*get_next_line(int fd)
 	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf || read(fd, NULL, 0) < 0)
 		return (gnl_free(buf));
-	n = 1;
+	n = 42;
 	while (n && !is_line_break(stash))
 	{
 		n = read(fd, buf, BUFFER_SIZE);
@@ -72,19 +74,18 @@ char	*get_next_line(int fd)
 	free(buf);
 	line = stash_to_line(stash);
 	if (is_line_break(stash) || !n)
-		stash = clean(stash);
+		stash = clean(stash, n);
 	return (line);
 }
 
-/*
 int main (void)
 {
 	int	fd;
 	int	i;
 
 	i = 0;
-	fd = open("41_no_nl", O_RDONLY);
+	fd = open("43_with_nl", O_RDONLY);
 	while (i++ < 5)
 		printf("gnl %d : '%s'\n", i, get_next_line(fd));
 	close(fd);
-}*/
+}

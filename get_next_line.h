@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:40 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 17:09:51 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:27:31 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_next_line(int fd);
 /*
 **	TO FUCKING DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
-
+# include <string.h>
 # define ICI printf("ici\n");
 # define STASH printf("stash : '%s'\n", stash); 
 # define LINE printf("line : '%s'\n", line);
