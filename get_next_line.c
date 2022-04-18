@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/18 17:10:04 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:54:37 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,11 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buf;
 	int			n;
-	int			i;
 
 	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf || read(fd, NULL, 0) < 0)
 		return (gnl_free(buf));
 	n = 1;
-	i = -1;
 	while (n && !is_line_break(stash))
 	{
 		n = read(fd, buf, BUFFER_SIZE);
