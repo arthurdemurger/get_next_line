@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:12:47 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/19 00:34:30 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/19 14:29:36 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ char	*gnl_free(char *s)
 char	*stash_to_line(char *str)
 {
 	int		size;
-	char	*line;
 
 	size = 0;
 	if (!*str)
 		return (NULL);
 	while (str[size] && str[size] != '\n')
 		size++;
-	line = gnl_substr(str, 0, size + 1);
-	return (line);
+	return (gnl_substr(str, 0, size + 1));
 }
 
 char	*clean(char *stash, int n)
@@ -62,8 +60,10 @@ char	*get_next_line(int fd)
 	char		*buf;
 	int			n;
 
+	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+		return(gnl_free(NULL));
 	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf || read(fd, NULL, 0) < 0)
+	if (!buf)
 		return (gnl_free(buf));
 	n = 42;
 	while (n && !is_line_break(stash[fd]))
