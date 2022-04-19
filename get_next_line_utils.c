@@ -6,7 +6,7 @@
 /*   By: ademurge <ademurge@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 22:13:28 by ademurge          #+#    #+#             */
-/*   Updated: 2022/04/19 00:00:30 by ademurge         ###   ########.fr       */
+/*   Updated: 2022/04/19 14:22:25 by ademurge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*ft_strdup(char *src)
 	int		i;
 
 	i = -1;
+	if (!src)
+		return (NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (!str)
 		return (NULL);
@@ -71,19 +73,17 @@ char	*gnl_strjoin(char *stash, char *buf)
 
 char	*gnl_substr(char const *s, int start, int len)
 {
-	char	*src;
 	char	*str;
 	int		i;
 
 	if (!s)
 		return (NULL);
-	src = (char *)s;
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	i = -1;
 	while (++i < len)
-		str[i] = src[start + i];
+		str[i] = s[start + i];
 	str[i] = 0;
 	return (str);
 }
